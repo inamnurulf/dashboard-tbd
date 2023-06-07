@@ -10,20 +10,17 @@ export default async function handler(
     switch (method) {
       case 'GET':
         try {
-        const query = 'SELECT * FROM public."Author";';
+        const query = 'SELECT * FROM public."PUBLISHER";';
           const result = await pool.query(query);
           res.status(200).json(result.rows);
         } catch (error) {
-          console.error('Error fetching author:', error);
+          console.error('Error fetching publishers:', error);
           res.status(500).json({ error : 'Internal server error' });
         }
         break;
   
       case 'POST':
         // Handle the POST request logic here
-        //Halo inam hehehe heheheheheheheheheh
-        //halo inam hehehehehehehehe
-        //tebak siapa saya hehehe
         break;
   
       default:
