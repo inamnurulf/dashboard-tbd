@@ -4,7 +4,7 @@ import  Modal  from "../components/books/modal";
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [rows, setRows] = useState([{['Book Name']:' Loading...'}]);
+  const [rows, setRows] = useState([{['Book Name']:' Loading...',['Book Number']: 'Loading...'}]);
   useEffect(() => {
     fetch('/api/books')
         .then((res) => res.json())
@@ -12,7 +12,14 @@ function App() {
         .catch((error) => console.log(error));
 }, []);
   const [rowToEdit, setRowToEdit] = useState(null);
-  const handleDeleteRow = (targetIndex: any) => {
+  const handleDeleteRow = async (targetIndex: any) => {
+    try {
+      const response = await fetch(`/api/books/${rows[targetIndex]["Book Number"]}`, {
+        method: 'DELETE'
+      });
+    } catch (error) {
+      console.error('Error adding book:', error);
+    }
     setRows(rows.filter((_, index) => index !== targetIndex));
   };
 
@@ -22,7 +29,47 @@ function App() {
     setModalOpen(true);
   };
 
-  const handleSubmit = (newRow:never) => {
+  const handleSubmit = async (newRow:never) => {
+    if (rowToEdit === null){
+      try {
+        const response = await fetch('/api/books', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newRow),
+        });
+  
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Book added:', result);
+        } else {
+          console.error('Error adding book:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error adding book:', error);
+      }
+    }
+    else{
+      try {
+        const response = await fetch(`/api/books/${rows[rowToEdit]["Book Number"]}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newRow),
+        });
+  
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Book added:', result);
+        } else {
+          console.error('Error adding book:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error adding book:', error);
+      }
+    }
     rowToEdit === null
       ? setRows([...rows, newRow])
       : setRows(
@@ -36,7 +83,7 @@ function App() {
 
   return (
     <>
-      <div className="justify-center items-center py-20 lg:py-10 px-3 lg:px-28 h-screen">
+      <div className="justify-center items-center py-20 lg:py-10 px-3 lg:px-28 h-screen overflow-y-scroll">
         <div className="text-4xl font-bold text-blue my-12 mx-auto">
           <h1 className="text-3xl sm:text-5xl font-bold mb-12 text-dark-blue">
             {" "}

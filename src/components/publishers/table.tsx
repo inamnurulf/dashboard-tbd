@@ -36,7 +36,7 @@ export const Table = ({ rows, deleteRow, editRow }:any) => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white divide-y divide-gray-200 overflow-y-scroll">
                   {rows.map((row: any, index:any) => (
                     <tr key={index}>
                       <td className="px-6 py-4 whitespace-nowrap">

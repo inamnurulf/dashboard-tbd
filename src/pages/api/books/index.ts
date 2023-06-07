@@ -10,7 +10,7 @@ export default async function handler(
     switch (method) {
       case 'GET':
         try {
-        const query = 'SELECT * FROM public."BOOK";';
+        const query = 'SELECT * FROM public."BOOK" ORDER BY "Book Number" ASC;';
           const result = await pool.query(query);
           res.status(200).json(result.rows);
         } catch (error) {
@@ -20,8 +20,21 @@ export default async function handler(
         break;
   
       case 'POST':
-        // Handle the POST request logic here
-        break;
+        const bookNumber =parseInt(req.body["Book Number"]);
+        const bookName =req.body["Book Name"];
+        const publicationYear =parseInt(req.body["Publication Year"]);
+        const pages =parseInt(req.body["Pages"]);
+        const publisherName =req.body["Publisher Name"];
+        try {
+          const query = `INSERT INTO public."BOOK" ("Book Number", "Book Name", "Publication Year", "Pages", "Publisher Name") VALUES(${bookNumber},'${bookName}',${publicationYear},${pages},'${publisherName}');`;
+          const cleanedquery =query.replace(/\\/g, '').replace("\n","")
+            const result = await pool.query(query.replace(/\\/g, '').replace("\n",""));
+            res.status(200).json(result);
+          } catch (error) {
+            console.error('Error posting book:', error);
+            res.status(500).json({ error : 'Internal server error' });
+          }
+          break;
   
       default:
         res.setHeader('Allow', ['GET', 'POST']);

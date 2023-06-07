@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     extend: {gridTemplateColumns: {
-      sidebar: "300px auto",
+      sidebar: "200px auto",
     }, 
     gridTemplateRows: {
       header: "64px auto", 
