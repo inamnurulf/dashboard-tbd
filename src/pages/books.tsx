@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react";
 import { Table } from "../components/books/table";
 import  Modal  from "../components/books/modal";
+import { toast } from "react-toastify";
+
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,10 +19,18 @@ function App() {
       const response = await fetch(`/api/books/${rows[targetIndex]["Book Number"]}`, {
         method: 'DELETE'
       });
+      if (response.ok){
+        toast('Book deleted', { hideProgressBar: false, autoClose: 2000, type: 'warning' });
+        setRows(rows.filter((_, index) => index !== targetIndex));
+      }
+      else{
+        toast(`Error deleting a book: ${response.statusText}, can be violates foreign key`, { hideProgressBar: false, autoClose: 2000, type: 'error' });
+      }
+
     } catch (error) {
-      console.error('Error adding book:', error);
+      console.error('Error deleting book:', error);
+
     }
-    setRows(rows.filter((_, index) => index !== targetIndex));
   };
 
   const handleEditRow = (index:any) => {
@@ -42,9 +52,12 @@ function App() {
   
         if (response.ok) {
           const result = await response.json();
+          toast('Book added', { hideProgressBar: false, autoClose: 2000, type: 'success' });
+
           console.log('Book added:', result);
         } else {
-          console.error('Error adding book:', response.statusText);
+          toast(`Error adding book: ${response}`, { hideProgressBar: false, autoClose: 2000, type: 'error' });
+          console.error('Error adding  book:', response.statusText);
         }
       } catch (error) {
         console.error('Error adding book:', error);
@@ -62,12 +75,16 @@ function App() {
   
         if (response.ok) {
           const result = await response.json();
-          console.log('Book added:', result);
+          toast('Book updated', { hideProgressBar: false, autoClose: 2000, type: 'success' });
+
+          console.log('Book updated:', result);
         } else {
-          console.error('Error adding book:', response.statusText);
+          console.error('Error updating book:', response.statusText);
+          toast('Error updating book', { hideProgressBar: false, autoClose: 2000, type: 'error' });
+
         }
       } catch (error) {
-        console.error('Error adding book:', error);
+        console.error('Error updating book:', error);
       }
     }
     rowToEdit === null
@@ -119,108 +136,3 @@ function App() {
 }
 
 export default App;
-
-// export default function App() {
-//   return (
-//     <>
-//       <div className="justify-center items-center py-20 lg:py-10 px-3 lg:px-28 h-screen">
-//         <div className="text-4xl font-bold text-blue my-12 mx-auto">
-//           <h1 className="text-3xl sm:text-5xl font-bold mb-12 text-dark-blue">
-//             {" "}
-//             Good Reading Bookstore{" "}
-//           </h1>
-//         </div>
-
-//         {/* Memulai Pembuatan Tabel nya */}
-//         {/* Mahasiswa di bebaskan untuk dapat berkreasi terhadap bentuk tabelnya */}
-
-//         <div className="flex flex-col">
-//           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-//             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-//               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-//                 <table className="min-w-full divide-y divide-gray-200">
-//                   <thead className="bg-gray-50">
-//                     <tr>
-//                       <th
-//                         scope="col"
-//                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-//                       >
-//                         Name
-//                       </th>
-//                       <th
-//                         scope="col"
-//                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-//                       >
-//                         Title
-//                       </th>
-//                       <th
-//                         scope="col"
-//                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-//                       >
-//                         Status
-//                       </th>
-//                       <th
-//                         scope="col"
-//                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-//                       >
-//                         Role
-//                       </th>
-//                       <th scope="col" className="relative px-6 py-3">
-//                         <span className="sr-only">Edit</span>
-//                       </th>
-//                     </tr>
-//                   </thead>
-//                   <tbody className="bg-white divide-y divide-gray-200">
-//                     {dummydata.map((person) => (
-//                       <tr key={person.email}>
-//                         <td className="px-6 py-4 whitespace-nowrap">
-//                           <div className="flex items-center">
-//                             <div className="ml-4">
-//                               <div className="text-sm font-medium text-gray-900">
-//                                 {person.name}
-//                               </div>
-//                               <div className="text-sm text-gray-500">
-//                                 {person.email}
-//                               </div>
-//                             </div>
-//                           </div>
-//                         </td>
-//                         <td className="px-6 py-4 whitespace-nowrap">
-//                           <div className="text-sm text-gray-900">
-//                             {person.title}
-//                           </div>
-//                           <div className="text-sm text-gray-500">
-//                             {person.department}
-//                           </div>
-//                         </td>
-//                         <td className="px-6 py-4 whitespace-nowrap">
-//                           <span
-//                             className="px-2 inline-flex text-xs leading-5
-//                       font-semibold rounded-full bg-green-100 text-green-800"
-//                           >
-//                             Active
-//                           </span>
-//                         </td>
-//                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-//                           {person.role}
-//                         </td>
-//                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-//                           <a
-//                             href="#"
-//                             className="text-indigo-600 hover:text-indigo-900"
-//                           >
-//                             Edit
-//                           </a>
-//                         </td>
-//                       </tr>
-//                     ))}
-//                   </tbody>
-//                 </table>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }

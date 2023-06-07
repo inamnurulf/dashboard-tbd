@@ -29,10 +29,12 @@ export default async function handler(
                 const query = `DELETE FROM public."BOOK" WHERE "Book Number" = ${id};`;
                 const result = await pool.query(query.replace(/\\/g, '').replace("\n", ""));
                 res.status(200).json(result);
-            } catch (error) {
-                console.error('Error delete book:', error);
-                res.status(500).json({ error: 'Internal server error' });
-            }            break;
+            } catch (error:any) {
+                console.error('Error delete book:',error);
+                console.log(error)
+                res.status(500).json({ error: error });
+            }
+            break;
 
         default:
             res.setHeader('Allow', ['PUT', 'DELETE']);
