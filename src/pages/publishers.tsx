@@ -49,7 +49,7 @@ function App() {
             deleteRow={handleDeleteRow}
             editRow={handleEditRow}
           />
-          <button
+          {/* <button
             onClick={() => setModalOpen(true)}
             className="mt-4 mx-auto border-none bg-blue-600 text-white py-2 px-4 rounded-lg cursor-pointer shadow-md"
           >
@@ -64,7 +64,7 @@ function App() {
               onSubmit={handleSubmit}
               defaultValue={rowToEdit !== null && rows[rowToEdit]}
             />
-          )}
+          )} */}
         </div>
       </div>
     </>

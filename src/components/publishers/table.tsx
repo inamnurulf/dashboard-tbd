@@ -59,12 +59,12 @@ export const Table = ({ rows, deleteRow, editRow }:any) => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {row['Telephone']}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      {/* <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <a
                           href="#"
                           className="text-indigo-600 hover:text-indigo-900"
                           onClick={() => deleteRow(index)}
-                        >
+                        > 
                           Delete
                         </a>
                       </td>
@@ -76,7 +76,7 @@ export const Table = ({ rows, deleteRow, editRow }:any) => {
                         >
                           Edit
                         </a>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>
