@@ -1,12 +1,12 @@
 import { useState,useEffect } from "react";
-import { Table } from "../components/books/table";
-import  Modal  from "../components/books/modal";
+import { Table } from "../components/authors/table";
+import  Modal  from "../components/authors/modal";
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [rows, setRows] = useState([{['Book Name']:' Loading...'}]);
+  const [rows, setRows] = useState([{['Author Name']:'Loading...'}]);
   useEffect(() => {
-    fetch('/api/books')
+    fetch('/api/authors')
         .then((res) => res.json())
         .then((data) => setRows(data))
         .catch((error) => console.log(error));

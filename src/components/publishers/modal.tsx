@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 
 const Modal = ({ closeModal, onSubmit, defaultValue }: any) => {
   const [formState, setFormState] = useState({
-    ['Book Number']: "",
-    ['Book Name']: "",
-    ['Publication Year']: "",
     ['Publisher Name']: "",
-    Pages: "",
+    ['City'] : "",
+    ['Country']: "",
+    ['Telephone']: "",
+    ['Year Founded']: "",
   });
   const [errors, setErrors] = useState("");
 
@@ -17,12 +17,11 @@ const Modal = ({ closeModal, onSubmit, defaultValue }: any) => {
   }, [defaultValue]);
 
   const validateForm = () => {
-    const {  Pages, department, role }: any = formState;
-    const name =formState['Book Name']
-    const number =formState['Book Number']
-    const year = formState['Publication Year']
-    const pubname = formState['Publisher Name']
-    if (name && Pages && number && year && pubname) {
+    const name =formState['Publisher Name']
+    const city =formState['City']
+    const country = formState['Country']
+    const year = formState['Year Founded']
+    if (name && city && year && country) {
       setErrors("");
       return true;
     } else {
@@ -65,52 +64,8 @@ return (
     <div className="bg-white p-8 rounded-md w-64">
       <form>
         <div className="flex flex-col mb-4">
-          <label htmlFor="name" className="font-semibold">
+          <label htmlFor="Publisher Name" className="font-semibold">
             Name
-          </label>
-          <input
-            name="Book Name"
-            onChange={handleChange}
-            value={formState['Book Name']}
-            className="border border-black rounded-md p-1 text-base"
-          />
-        </div>
-        <div className="flex flex-col mb-4">
-          <label htmlFor="Pages" className="font-semibold">
-            Pages
-          </label>
-          <input
-            name="Pages"
-            onChange={handleChange}
-            value={formState.Pages}
-            className="border border-black rounded-md p-1 text-base"
-          />
-        </div>
-        <div className="flex flex-col mb-4">
-          <label htmlFor="title" className="font-semibold">
-            Pages
-          </label>
-          <textarea
-            name="Book Number"
-            onChange={handleChange}
-            value={formState['Book Number']}
-            className="border border-black rounded-md p-1 text-base"
-          />
-        </div>
-        <div className="flex flex-col mb-4">
-          <label htmlFor="Publication Year" className="font-semibold">
-            Publication Year
-          </label>
-          <input
-            name="Publication Year"
-            onChange={handleChange}
-            value={formState['Publication Year']}
-            className="border border-black rounded-md p-1 text-base"
-          />
-        </div>
-        <div className="flex flex-col mb-4">
-          <label htmlFor="status" className="font-semibold">
-            Publisher Name
           </label>
           <input
             name="Publisher Name"
@@ -118,7 +73,39 @@ return (
             value={formState['Publisher Name']}
             className="border border-black rounded-md p-1 text-base"
           />
-           
+        </div>
+        <div className="flex flex-col mb-4">
+          <label htmlFor="City" className="font-semibold">
+            City
+          </label>
+          <input
+            name="City"
+            onChange={handleChange}
+            value={formState['City']}
+            className="border border-black rounded-md p-1 text-base"
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <label htmlFor="Country" className="font-semibold">
+            Country
+          </label>
+          <textarea
+            name="Country"
+            onChange={handleChange}
+            value={formState['Country']}
+            className="border border-black rounded-md p-1 text-base"
+          />
+        </div>
+        <div className="flex flex-col mb-4">
+          <label htmlFor="Telephone" className="font-semibold">
+            Telephone
+          </label>
+          <input
+            name="Telephone"
+            onChange={handleChange}
+            value={formState['Telephone']}
+            className="border border-black rounded-md p-1 text-base"
+          />
         </div>
         {errors && <div className="error">{`Please include: ${errors}`}</div>}
         <button

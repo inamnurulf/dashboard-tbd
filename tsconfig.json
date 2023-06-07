@@ -19,6 +19,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "src/components/modal.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "src/components/books/modal.tsx"],
   "exclude": ["node_modules"]
 }
