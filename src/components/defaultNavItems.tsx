@@ -4,7 +4,8 @@ import {
   CircleStackIcon,
   BookOpenIcon,
   ArchiveBoxIcon,
-  IdentificationIcon
+  IdentificationIcon,
+  BuildingLibraryIcon
 } from "@heroicons/react/24/outline";
 import { NavItem } from "./sidebar";
 
@@ -29,4 +30,9 @@ export const defaultNavItems: NavItem[] = [
     href: "/customers",
     icon: <CircleStackIcon className="w-6 h-6" />,
   },
+  {
+    label : "SQL Builder",
+    href :"/sqlbuilder",
+    icon: <BuildingLibraryIcon className="w-6 h-6"/>
+  }
 ];

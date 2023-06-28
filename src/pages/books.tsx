@@ -49,7 +49,7 @@ function App() {
           },
           body: JSON.stringify(newRow),
         });
-  
+        console.log (JSON.stringify(newRow))
         if (response.ok) {
           const result = await response.json();
           toast('Book added', { hideProgressBar: false, autoClose: 2000, type: 'success' });
@@ -72,12 +72,13 @@ function App() {
           },
           body: JSON.stringify(newRow),
         });
-  
+        console.log (JSON.stringify(newRow))
+
         if (response.ok) {
           const result = await response.json();
           toast('Book updated', { hideProgressBar: false, autoClose: 2000, type: 'success' });
 
-          console.log('Book updated:', result);
+          // console.log('Book updated:', result);
         } else {
           console.error('Error updating book:', response.statusText);
           toast('Error updating book', { hideProgressBar: false, autoClose: 2000, type: 'error' });
