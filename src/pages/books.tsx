@@ -49,7 +49,6 @@ function App() {
           },
           body: JSON.stringify(newRow),
         });
-        console.log (JSON.stringify(newRow))
         if (response.ok) {
           const result = await response.json();
           toast('Book added', { hideProgressBar: false, autoClose: 2000, type: 'success' });
@@ -72,7 +71,6 @@ function App() {
           },
           body: JSON.stringify(newRow),
         });
-        console.log (JSON.stringify(newRow))
 
         if (response.ok) {
           const result = await response.json();

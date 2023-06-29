@@ -9,11 +9,9 @@ export default async function handler(
 
     switch (method) {
         case 'POST':
-        console.log(req.body)
         const reqquery = req.body
             try {
                 const query = reqquery;
-                console.log(req.body)
                 const cleanedquery = query.replace(/\\/g, '').replace("\n", "")
                 const result = await pool.query(query.replace(/\\/g, '').replace("\n", ""));
                 res.status(200).json(result);

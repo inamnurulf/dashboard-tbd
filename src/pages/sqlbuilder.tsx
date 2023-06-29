@@ -20,7 +20,6 @@ function App() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log(result)
         setResult(JSON.stringify(result));
         toast('Success', { hideProgressBar: false, autoClose: 2000, type: 'success' });
 
