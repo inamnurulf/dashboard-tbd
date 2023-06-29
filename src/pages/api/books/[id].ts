@@ -6,8 +6,8 @@ export default async function handler(
     res: NextApiResponse
 ): Promise<void> {
     const { method } = req;
-    const {id}= req.query
-    
+    const { id } = req.query
+
     switch (method) {
         case 'PUT':
             const bookName = req.body["Book Name"];
@@ -26,12 +26,18 @@ export default async function handler(
 
         case 'DELETE':
             try {
-                const query = `DELETE FROM public."BOOK" WHERE "Book Number" = ${id};`;
-                const result = await pool.query(query.replace(/\\/g, '').replace("\n", ""));
+                const query = `
+                    BEGIN;
+                    DELETE FROM public."Wrote" WHERE "Book Number" = ${id};
+                    DELETE FROM public."Bought" WHERE "Book Number" = ${id};
+                    DELETE FROM public."BOOK" WHERE "Book Number" = ${id};
+                    COMMIT;
+                  `;
+                const cleanedQuery = query.replace(/\\/g, '').replace("\n", "");
+                const result = await pool.query(cleanedQuery);
                 res.status(200).json(result);
-            } catch (error:any) {
-                console.error('Error delete book:',error);
-                console.log(error)
+            } catch (error: any) {
+                console.error('Error deleting book:', error);
                 res.status(500).json({ error: error });
             }
             break;
